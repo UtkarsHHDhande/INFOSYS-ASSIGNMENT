@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collaborations Between Competitors and Virgin Media</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        a {
+            color: blue;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .pagination {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .pagination a {
+            margin: 0 5px;
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            text-decoration: none;
+        }
+        .pagination a.active {
+            background-color: #007bff;
+            color: white;
+        }
+        .button-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .button-container a {
+            margin: 0 10px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .button-container a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Collaborations Between Competitors and Virgin Media</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Competitor</th>
+                <th>Title</th>
+                <th>Link</th>
+                <th>Snippet</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (collaborations.length === 0) { %>
+                <tr>
+                    <td colspan="4">No collaborations found.</td>
+                </tr>
+            <% } else { %>
+                <% collaborations.forEach(function(collaboration) { %>
+                    <tr>
+                        <td><%= collaboration.competitor %></td>
+                        <td><%= collaboration.title %></td>
+                        <td><a href="<%= collaboration.link %>" target="_blank">Link</a></td>
+                        <td><%= collaboration.snippet %></td>
+                    </tr>
+                <% }) %>
+            <% } %>
+        </tbody>
+    </table>
+    <div class="pagination">
+        <% if (currentPage > 1) { %>
+            <a href="?page=<%= currentPage - 1 %>">Previous</a>
+        <% } %>
+        <% for (let i = 1; i <= totalPages; i++) { %>
+            <a href="?page=<%= i %>" class="<%= i === currentPage ? 'active' : '' %>"><%= i %></a>
+        <% } %>
+        <% if (currentPage < totalPages) { %>
+            <a href="?page=<%= currentPage + 1 %>">Next</a>
+        <% } %>
+    </div>
+    <div class="button-container">
+        <a href="/export-csv">Export CSV</a>
+        <a href="/export-json">Export JSON</a>
+    </div>
+</body>
+</html>
